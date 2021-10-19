@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("io.gitlab.arturbosch.detekt").version("1.18.1")
-    id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
+//    id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
 }
 
 android {
@@ -54,7 +54,7 @@ detekt {
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    // Target version of the generated JVM bytecode. It is used for type resolution.
+//     Target version of the generated JVM bytecode. It is used for type resolution.
     this.jvmTarget = "1.8"
 }
 

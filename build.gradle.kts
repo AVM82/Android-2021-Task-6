@@ -1,16 +1,33 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
+}
+
 buildscript {
-    val kotlinVersion = "1.5.31"
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath(rs.school.rs.android2021task6.BuildPlugins.gradle)
+        classpath(rs.school.rs.android2021task6.BuildPlugins.kotlin)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
+
+//    repositories {
+        // Required to download KtLint
+//        mavenCentral()
+//    }
+
+    // Optionally configure plugin
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        debug.set(true)
     }
 }
 
