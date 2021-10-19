@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
+    id("io.gitlab.arturbosch.detekt").version("1.18.1")
 }
 
 buildscript {
@@ -17,13 +18,27 @@ buildscript {
     }
 }
 
+detekt {
+    toolVersion = "1.18.1"
+    config = files("config/detekt/detekt.yml")
+    buildUponDefaultConfig = true
+    source = files("src/main/java", "src/main/kotlin")
+    reports {
+        html {
+            enabled = true
+            destination = file("build/detekt/detekt.html")
+        }
+    }
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+//     Target version of the generated JVM bytecode. It is used for type resolution.
+    this.jvmTarget = "1.8"
+}
+
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
-
-//    repositories {
-        // Required to download KtLint
-//        mavenCentral()
-//    }
+    apply(plugin = "io.gitlab.arturbosch.detekt") // Version should be inherited from parent
 
     // Optionally configure plugin
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
