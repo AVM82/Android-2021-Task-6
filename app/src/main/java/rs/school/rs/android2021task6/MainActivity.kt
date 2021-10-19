@@ -1,7 +1,7 @@
 package rs.school.rs.android2021task6
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import rs.school.rs.android2021task6.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
