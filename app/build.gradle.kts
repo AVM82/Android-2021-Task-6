@@ -1,17 +1,19 @@
+import rs.school.rs.android2021task6.ConfigData
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
 }
 
 android {
-    compileSdk = 31
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId = "rs.school.rs.android2021task6"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
+        versionCode = ConfigData.versionCode
+        versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
