@@ -1,4 +1,5 @@
 import rs.school.rs.android2021task6.ConfigData
+import rs.school.rs.android2021task6.Deps
 
 plugins {
     id("com.android.application")
@@ -41,13 +42,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Deps.Ktx.core)
+    implementation(Deps.Ktx.liveData)
+    implementation(Deps.Ktx.viewModel)
+
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.Google.material)
+    implementation(Deps.AndroidX.constraint)
+
+    testImplementation(Deps.Test.junit)
+    androidTestImplementation(Deps.Test.junitUi)
+    androidTestImplementation(Deps.Test.espresso)
 }
