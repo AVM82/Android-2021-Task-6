@@ -8,17 +8,80 @@
     tools:context=".ui.main.MainFragment">
 
     <TextView
+        android:id="@+id/songName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:textSize="24sp"
         android:textAlignment="center"
-        >
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem" />
 
-    </TextView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/songImage"
+        android:layout_width="match_parent"
+        android:layout_height="333dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/songName"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/prevSong"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="25dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/playSong"
+        app:layout_constraintEnd_toStartOf="@+id/playSong"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/playSong"
+        app:srcCompat="@drawable/ic_skip_previous" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/playSong"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="25dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopSong"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/prevSong"
+        app:layout_constraintTop_toBottomOf="@+id/songImage"
+        app:srcCompat="@drawable/ic_play" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/stopSong"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="25dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nextSong"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playSong"
+        app:layout_constraintTop_toBottomOf="@+id/songImage"
+        app:srcCompat="@drawable/ic_stop" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nextSong"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/stopSong"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/stopSong"
+        app:layout_constraintTop_toTopOf="@+id/stopSong"
+        app:srcCompat="@drawable/ic_skip_next" />
 </androidx.constraintlayout.widget.ConstraintLayout>
