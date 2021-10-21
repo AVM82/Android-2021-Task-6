@@ -4,52 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.main.MainFragment">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/songImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraint_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/songName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top"
         android:textAlignment="center"
         android:textSize="@dimen/title_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/songImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@+id/songAuthor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
         android:textAlignment="center"
         android:textSize="@dimen/title_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/songImage"
         app:layout_constraintTop_toBottomOf="@id/songName"
         tools:text="@tools:sample/lorem" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/songImage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="25dp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@id/constraint_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/songAuthor"
-        tools:src="@tools:sample/backgrounds/scenic" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/constraint_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/prevSong"
@@ -63,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="@id/playSong"
         app:layout_constraintEnd_toStartOf="@id/playSong"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/songImage"
         app:layout_constraintTop_toTopOf="@id/playSong"
         app:srcCompat="@drawable/ic_skip_previous" />
 
@@ -79,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/stopSong"
         app:layout_constraintStart_toEndOf="@id/prevSong"
-        app:layout_constraintTop_toBottomOf="@id/songImage"
+        app:layout_constraintTop_toBottomOf="@id/songAuthor"
         app:srcCompat="@drawable/ic_play" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -94,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/nextSong"
         app:layout_constraintStart_toEndOf="@id/playSong"
-        app:layout_constraintTop_toBottomOf="@id/songImage"
+        app:layout_constraintTop_toBottomOf="@id/songAuthor"
         app:srcCompat="@drawable/ic_stop" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -110,4 +99,12 @@
         app:layout_constraintStart_toEndOf="@id/stopSong"
         app:layout_constraintTop_toTopOf="@id/stopSong"
         app:srcCompat="@drawable/ic_skip_next" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/constraint_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
