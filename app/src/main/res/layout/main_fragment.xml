@@ -18,6 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />
+    <TextView
+        android:id="@+id/songAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/songName"
+        tools:text="@tools:sample/lorem" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/songImage"
@@ -25,7 +36,7 @@
         android:layout_height="333dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/songName"
+        app:layout_constraintTop_toBottomOf="@id/songAuthor"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <androidx.appcompat.widget.AppCompatImageView
