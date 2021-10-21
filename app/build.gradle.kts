@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
     implementation(Deps.Ktx.core)
     implementation(Deps.Ktx.liveData)
     implementation(Deps.Ktx.viewModel)

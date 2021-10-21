@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import rs.school.rs.android2021task6.R
+import rs.school.rs.core.utils.ParseJSON
 
 class MainFragment : Fragment() {
 
@@ -21,6 +22,8 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val open = context?.assets?.open("play_list.json")?.bufferedReader().use { it?.readText() }
+        open?.let { ParseJSON().toSongList(it) }
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
