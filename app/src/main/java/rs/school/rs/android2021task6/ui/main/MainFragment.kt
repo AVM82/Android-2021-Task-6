@@ -29,6 +29,15 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        views {
+            playPauseSong.setOnClickListener {
+                //todo
+            }
+        }
+    }
+
     private fun <T> views(block: MainFragmentBinding.() -> T) = binding.block()
 
     override fun onDestroyView() {

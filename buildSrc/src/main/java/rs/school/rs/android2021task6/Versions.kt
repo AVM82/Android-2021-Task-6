@@ -2,11 +2,15 @@ package rs.school.rs.android2021task6
 
 object Versions {
 
+    const val hiltCompiler = "1.0.0"
     const val gradlePlugin = "7.0.3"
     const val kotlin = "1.5.31"
     const val appcompat = "1.3.1"
     const val material = "1.4.0"
     const val constraint = "2.1.1"
+    const val hilt ="2.38.1"
+    const val hiltLivecycle = "1.0.0-alpha03"
+    const val glide = "4.12.0"
 
     const val junit = "4.13.2"
     const val junitUi = "1.1.3"

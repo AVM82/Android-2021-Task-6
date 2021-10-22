@@ -49,15 +49,15 @@
         android:clickable="true"
         android:contentDescription="@string/previous"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@id/playSong"
-        app:layout_constraintEnd_toStartOf="@id/playSong"
+        app:layout_constraintBottom_toBottomOf="@id/playPauseSong"
+        app:layout_constraintEnd_toStartOf="@id/playPauseSong"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/songImage"
-        app:layout_constraintTop_toTopOf="@id/playSong"
+        app:layout_constraintTop_toTopOf="@id/playPauseSong"
         app:srcCompat="@drawable/ic_skip_previous" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/playSong"
+        android:id="@+id/playPauseSong"
         android:layout_width="@dimen/icon_size_big"
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/margin_end_control_button"
@@ -82,7 +82,7 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/nextSong"
-        app:layout_constraintStart_toEndOf="@id/playSong"
+        app:layout_constraintStart_toEndOf="@id/playPauseSong"
         app:layout_constraintTop_toBottomOf="@id/songAuthor"
         app:srcCompat="@drawable/ic_stop" />
 

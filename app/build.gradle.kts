@@ -4,6 +4,8 @@ import rs.school.rs.android2021task6.Deps
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -52,6 +54,11 @@ dependencies {
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.Google.material)
     implementation(Deps.AndroidX.constraint)
+
+    implementation(Deps.Google.hilt)
+    implementation(Deps.AndroidX.hilt)
+    kapt(Deps.Kapt.dagger)
+    kapt(Deps.Kapt.hilt)
 
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitUi)

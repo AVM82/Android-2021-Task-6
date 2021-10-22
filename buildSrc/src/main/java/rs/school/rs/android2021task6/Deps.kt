@@ -17,9 +17,20 @@ object Deps {
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         const val constraint = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
+        const val hilt = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLivecycle}"
     }
 
     object Google {
         const val material = "com.google.android.material:material:${Versions.material}"
+        const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    }
+
+    object Kapt {
+        const val dagger = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+        const val hilt = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
+    }
+
+    object Glide {
+        const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     }
 }
