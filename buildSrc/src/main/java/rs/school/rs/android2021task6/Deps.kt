@@ -33,4 +33,10 @@ object Deps {
     object Glide {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     }
+
+    object ExoPlayer {
+        const val core = "com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}"
+        const val ui = "com.google.android.exoplayer:exoplayer-ui:2.15.1"
+        const val mediasession = "com.google.android.exoplayer:extension-mediasession:2.15.1"
+    }
 }

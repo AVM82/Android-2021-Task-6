@@ -12,6 +12,8 @@ object Versions {
     const val hiltLivecycle = "1.0.0-alpha03"
     const val glide = "4.12.0"
 
+    const val exoPlayer = "2.15.1"
+
     const val junit = "4.13.2"
     const val junitUi = "1.1.3"
     const val espresso = "3.4.0"
