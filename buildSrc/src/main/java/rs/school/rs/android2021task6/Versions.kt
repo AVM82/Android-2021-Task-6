@@ -15,6 +15,7 @@ object Versions {
     const val coreKtx = "1.6.0"
     const val livedataKtx = "2.3.1"
     const val viewmodelKtx = "2.3.1"
+    const val fragmentKtx = "1.3.6"
 
     const val ktlint = "10.2.0"
     const val detekt = "1.18.1"

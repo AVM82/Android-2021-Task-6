@@ -5,6 +5,7 @@ object Deps {
         const val core = "androidx.core:core-ktx:${Versions.coreKtx}"
         const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.livedataKtx}"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewmodelKtx}"
+        const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
     }
 
     object Test {
@@ -16,7 +17,6 @@ object Deps {
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         const val constraint = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
-
     }
 
     object Google {

@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "Android-2021-Task-6"
 include(":app")
 include(":core")
+include(":exoplayer")

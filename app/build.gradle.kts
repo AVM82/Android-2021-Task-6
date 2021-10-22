@@ -47,6 +47,7 @@ dependencies {
     implementation(Deps.Ktx.core)
     implementation(Deps.Ktx.liveData)
     implementation(Deps.Ktx.viewModel)
+    implementation(Deps.Ktx.fragment)
 
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.Google.material)

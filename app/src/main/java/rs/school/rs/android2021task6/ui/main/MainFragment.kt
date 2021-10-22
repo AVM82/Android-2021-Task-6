@@ -5,30 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import rs.school.rs.android2021task6.R
-import rs.school.rs.core.utils.ParseJSON
+import androidx.fragment.app.viewModels
+import rs.school.rs.android2021task6.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
 
     companion object {
+        @JvmStatic
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
+    private val binding get() = requireNotNull(_binding)
+
+    private var _binding: MainFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val open = context?.assets?.open("play_list.json")?.bufferedReader().use { it?.readText() }
-        open?.let { ParseJSON().toSongList(it) }
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        MainFragmentBinding.inflate(inflater).also { _binding = it }
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    private fun <T> views(block: MainFragmentBinding.() -> T) = binding.block()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
