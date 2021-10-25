@@ -1,6 +1,8 @@
 package rs.school.rs.android2021task6
 
 object Deps {
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+
     object Ktx {
         const val core = "androidx.core:core-ktx:${Versions.coreKtx}"
         const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.livedataKtx}"
