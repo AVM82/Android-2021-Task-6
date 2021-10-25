@@ -20,7 +20,6 @@ import javax.inject.Inject
 class MusicService @Inject constructor(
     val dataSourceFactory: DefaultDataSourceFactory,
     val exoPlayer: SimpleExoPlayer,
-    val repo: SongRepository
 ) : MediaBrowserServiceCompat() {
 
     private val serviceJob = Job()

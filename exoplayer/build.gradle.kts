@@ -27,6 +27,7 @@ dependencies {
     implementation(Deps.ExoPlayer.mediasession)
     implementation(Deps.ExoPlayer.ui)
     implementation(Deps.Google.hilt)
+    implementation(Deps.AndroidX.core)
     implementation(Deps.AndroidX.hilt)
     implementation(Deps.coroutines)
     kapt(Deps.Kapt.dagger)

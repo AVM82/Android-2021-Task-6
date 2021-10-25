@@ -12,6 +12,7 @@ object Versions {
     const val hiltLivecycle = "1.0.0-alpha03"
     const val glide = "4.12.0"
     const val coroutines = "1.5.2"
+    const val androidXcore = "1.6.0"
 
     const val exoPlayer = "2.15.1"
 

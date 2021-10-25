@@ -20,6 +20,7 @@ object Deps {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         const val constraint = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
         const val hilt = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLivecycle}"
+        const val core = "androidx.core:core-ktx:${Versions.androidXcore}"
     }
 
     object Google {
