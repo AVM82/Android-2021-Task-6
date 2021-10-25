@@ -13,7 +13,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import rs.school.rs.core.repository.SongRepository
+import rs.school.rs.exoplayer.NotificationManager
+import rs.school.rs.exoplayer.callback.PlayerNotificationListener
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +26,8 @@ class MusicService @Inject constructor(
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
+    var isForegroundService = false
+
     override fun onCreate() {
         super.onCreate()
         val intent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
@@ -34,8 +37,15 @@ class MusicService @Inject constructor(
             setSessionActivity(intent)
             isActive = true
         }
-
         sessionToken = mediaSession.sessionToken
+        NotificationManager(
+            context = this,
+            sessionToken = mediaSession.sessionToken,
+            notificationListener = PlayerNotificationListener(this)
+        ) {
+
+        }
+
         MediaSessionConnector(mediaSession).setPlayer(exoPlayer)
     }
 
