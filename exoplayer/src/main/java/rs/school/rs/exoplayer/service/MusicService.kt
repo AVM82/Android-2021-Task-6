@@ -13,12 +13,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import rs.school.rs.core.repository.SongRepository
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicService @Inject constructor(
     val dataSourceFactory: DefaultDataSourceFactory,
-    val exoPlayer: SimpleExoPlayer
+    val exoPlayer: SimpleExoPlayer,
+    val repo: SongRepository
 ) : MediaBrowserServiceCompat() {
 
     private val serviceJob = Job()

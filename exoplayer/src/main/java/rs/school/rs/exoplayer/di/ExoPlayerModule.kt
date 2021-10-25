@@ -12,6 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
+import rs.school.rs.core.repository.SongRepositoryImp
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -35,8 +36,12 @@ class ExoPlayerModule {
 
     @ServiceScoped
     @Provides
+    fun provideSongRepository(@ApplicationContext context: Context) = SongRepositoryImp(context)
+
+    @ServiceScoped
+    @Provides
     fun provideDataSourceFactory(
         @ApplicationContext context: Context
-    ) = DefaultDataSourceFactory(context, Util.getUserAgent(context, "Spotify App"))
+    ) = DefaultDataSourceFactory(context, Util.getUserAgent(context, "Player"))
 
 }

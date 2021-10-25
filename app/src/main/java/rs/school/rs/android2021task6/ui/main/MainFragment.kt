@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
+import rs.school.rs.core.repository.SongRepositoryImp
 
 class MainFragment : Fragment() {
 
@@ -31,10 +32,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.foo()
-        views {
+       views {
             playPauseSong.setOnClickListener {
-                //todo
+                viewModel.foo(SongRepositoryImp(requireContext()))
             }
         }
     }

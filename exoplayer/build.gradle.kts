@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(Deps.ExoPlayer.core)
     implementation(Deps.ExoPlayer.mediasession)
     implementation(Deps.ExoPlayer.ui)
