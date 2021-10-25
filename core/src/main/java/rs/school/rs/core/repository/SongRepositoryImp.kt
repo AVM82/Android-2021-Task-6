@@ -5,7 +5,7 @@ import rs.school.rs.core.model.Song
 import rs.school.rs.core.utils.ParseJSON
 import java.nio.charset.StandardCharsets.UTF_8
 
-class SongRepositoryImp(val context: Context) : SongRepository {
+class SongRepositoryImp(private val context: Context) : SongRepository {
 
     override fun fetchSongs(): List<Song> {
         val input = context.assets.open("play_list.json")

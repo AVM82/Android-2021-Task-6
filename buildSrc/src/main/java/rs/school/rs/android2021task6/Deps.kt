@@ -2,6 +2,7 @@ package rs.school.rs.android2021task6
 
 object Deps {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 
     object Ktx {
         const val core = "androidx.core:core-ktx:${Versions.coreKtx}"
@@ -33,13 +34,9 @@ object Deps {
         const val hilt = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
     }
 
-    object Glide {
-        const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
-    }
-
     object ExoPlayer {
         const val core = "com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}"
-        const val ui = "com.google.android.exoplayer:exoplayer-ui:2.15.1"
-        const val mediasession = "com.google.android.exoplayer:extension-mediasession:2.15.1"
+        const val ui = "com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}"
+        const val mediasession = "com.google.android.exoplayer:extension-mediasession:${Versions.exoPlayer}"
     }
 }
