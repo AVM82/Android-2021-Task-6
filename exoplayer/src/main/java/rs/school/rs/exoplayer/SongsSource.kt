@@ -3,12 +3,7 @@ package rs.school.rs.exoplayer
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_TITLE
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_ARTIST
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON_URI
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_URI
-import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI
+import android.support.v4.media.MediaMetadataCompat.*
 import androidx.core.net.toUri
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
@@ -26,7 +21,7 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
     suspend fun fetchSongs() = withContext(Dispatchers.IO) {
         val allSongs = songRepository.fetchSongs()
         songs = allSongs.map { song ->
-            MediaMetadataCompat.Builder()
+            Builder()
                 .putString(METADATA_KEY_ARTIST, song.artist)
                 .putString(METADATA_KEY_TITLE, song.title)
                 .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
@@ -41,7 +36,11 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
         val concatenatingMediaSource = ConcatenatingMediaSource()
         songs.forEach { song ->
             val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(song.getString(METADATA_KEY_MEDIA_URI).toUri()))
+                .createMediaSource(
+                    MediaItem.fromUri(
+                        song.getString(METADATA_KEY_MEDIA_URI).toUri()
+                    )
+                )
 //                .createMediaSource(song.getString(METADATA_KEY_MEDIA_URI).toUri())
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
@@ -57,5 +56,5 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE)
-    }
+    }.toMutableList()
 }
