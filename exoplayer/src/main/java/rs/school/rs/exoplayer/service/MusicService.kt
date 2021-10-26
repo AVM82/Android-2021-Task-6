@@ -3,6 +3,7 @@ package rs.school.rs.exoplayer.service
 import android.app.PendingIntent
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -14,19 +15,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import rs.school.rs.exoplayer.NotificationManager
+import rs.school.rs.exoplayer.SongsSource
+import rs.school.rs.exoplayer.callback.PlayerEventListener
 import rs.school.rs.exoplayer.callback.PlayerNotificationListener
+import rs.school.rs.exoplayer.callback.PlayerPlaybackPreparer
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicService @Inject constructor(
     val dataSourceFactory: DefaultDataSourceFactory,
     val exoPlayer: SimpleExoPlayer,
+    var songsSource: SongsSource
 ) : MediaBrowserServiceCompat() {
 
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
+    private var playingSong: MediaMetadataCompat? = null
+
     var isForegroundService = false
+
 
     override fun onCreate() {
         super.onCreate()
@@ -38,15 +46,36 @@ class MusicService @Inject constructor(
             isActive = true
         }
         sessionToken = mediaSession.sessionToken
-        NotificationManager(
+        val notificationManager = NotificationManager(
             context = this,
             sessionToken = mediaSession.sessionToken,
             notificationListener = PlayerNotificationListener(this)
         ) {
 
+
         }
 
-        MediaSessionConnector(mediaSession).setPlayer(exoPlayer)
+        val playbackPreparer = PlayerPlaybackPreparer(songsSource) {
+            playingSong = it
+            preparePlayer(songsSource.songs, it, true)
+        }
+
+        val mediaSessionConnector = MediaSessionConnector(mediaSession)
+        mediaSessionConnector.setPlaybackPreparer(playbackPreparer)
+        mediaSessionConnector.setPlayer(exoPlayer)
+        exoPlayer.addListener(PlayerEventListener(this))
+        notificationManager.showNotification(exoPlayer)
+    }
+
+    private fun preparePlayer(
+        songs: List<MediaMetadataCompat>,
+        item: MediaMetadataCompat?,
+        isPlaying: Boolean
+    ) {
+        val songIndex = if (playingSong == null) 0 else songs.indexOf(item)
+        exoPlayer.setMediaSource(songsSource.asMediaSource(dataSourceFactory))
+        exoPlayer.seekTo(songIndex, 0L)
+        exoPlayer.playWhenReady = isPlaying
     }
 
     override fun onDestroy() {
