@@ -6,6 +6,7 @@ import org.json.JSONObject
 import rs.school.rs.core.model.Song
 import java.util.Collections
 
+const val SONG_FIELD_ID = "id"
 const val SONG_FIELD_TITLE = "title"
 const val SONG_FIELD_ARTIST = "artist"
 const val SONG_FIELD_IMG = "bitmapUri"
@@ -24,6 +25,7 @@ class ParseJSON {
     }
 
     private fun toSong(jsonObj: JSONObject) = Song(
+        id = jsonObj.getInt(SONG_FIELD_ID),
         title = jsonObj.getString(SONG_FIELD_TITLE),
         artist = jsonObj.getString(SONG_FIELD_ARTIST),
         bitmapUri = jsonObj.getString(SONG_FIELD_IMG),
