@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
+import rs.school.rs.core.model.Song
 import rs.school.rs.core.repository.SongRepositoryImp
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     companion object {
@@ -34,7 +37,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
        views {
             playPauseSong.setOnClickListener {
-                viewModel.foo(SongRepositoryImp(requireContext()))
+                viewModel.playOrToggleSong(Song(id = 1, title = "", artist = "", bitmapUri = "", trackUri = "https://freepd.com/music/Ice and Snow.mp3"))
             }
         }
     }

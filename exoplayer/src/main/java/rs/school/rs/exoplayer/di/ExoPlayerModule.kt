@@ -13,6 +13,7 @@ import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
 import rs.school.rs.core.repository.SongRepositoryImp
+import rs.school.rs.exoplayer.SongsSource
 
 @Module
 @InstallIn(ServiceComponent::class)

@@ -45,6 +45,9 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":exoplayer"))
+
+    implementation(Deps.ExoPlayer.mediasession)
 
     implementation(Deps.Ktx.core)
     implementation(Deps.Ktx.liveData)

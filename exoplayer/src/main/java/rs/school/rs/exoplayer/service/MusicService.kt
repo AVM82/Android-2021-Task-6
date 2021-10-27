@@ -29,6 +29,7 @@ class MusicService @Inject constructor(
     var songsSource: SongsSource
 ) : MediaBrowserServiceCompat() {
 
+
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
@@ -139,8 +140,8 @@ class MusicService @Inject constructor(
 
     companion object {
         private const val SERVICE_TAG = "PlayService"
-        private const val ROOT_ID = "MediaRoot"
         private var songDuration = 0L
             private set
+        const val ROOT_ID = "MediaRoot"
     }
 }
