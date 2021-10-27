@@ -45,6 +45,7 @@ class MusicService @Inject constructor(
 //        serviceScope.launch {
 //            songsSource.fetchSongs()
 //        }
+        //I know it’s bad to do this, but I expect it to be fast, and I don’t have to do various checks.
         runBlocking {
             songsSource.fetchSongs()
         }
@@ -128,6 +129,11 @@ class MusicService @Inject constructor(
                 preparePlayer(songsSource.songs, songsSource.songs[0], false)
                 isPlayerInit = true
             }
+            //todo remove this
+//            else{
+//                mediaSession.sendSessionEvent(NETWORK_ERROR, null)
+//                result.sendResult(null)
+//            }
         }
     }
 
