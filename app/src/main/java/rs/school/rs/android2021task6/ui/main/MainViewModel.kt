@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import rs.school.rs.core.model.Song
 import rs.school.rs.core.utils.Resource
-import rs.school.rs.exoplayer.isPrepared
-import rs.school.rs.exoplayer.isPlaying
 import rs.school.rs.exoplayer.isPlayEnabled
+import rs.school.rs.exoplayer.isPlaying
+import rs.school.rs.exoplayer.isPrepared
 import rs.school.rs.exoplayer.service.MusicService
 import rs.school.rs.exoplayer.service.ServiceConnection
 import javax.inject.Inject
@@ -24,8 +24,8 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
 
     val isConnected = serviceConnection.isConnected
     val networkError = serviceConnection.networkError
-    private val curPlayingSong = serviceConnection.playingSong
-    private val playbackState = serviceConnection.playbackState
+    val curPlayingSong = serviceConnection.playingSong
+    val playbackState = serviceConnection.playbackState
 
     init {
         _mediaItems.postValue(Resource.loading(null))
@@ -65,11 +65,12 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
 
     fun playOrToggleSong(mediaItem: Song, toggle: Boolean = false) {
         val isPrepared = playbackState.value?.let { isPrepared(it) } ?: false
-        if(isPrepared && mediaItem.id.toString() ==
-            curPlayingSong.value?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID)) {
+        if (isPrepared && mediaItem.id.toString() ==
+            curPlayingSong.value?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID)
+        ) {
             playbackState.value?.let { playbackState ->
                 when {
-                    isPlaying(playbackState) -> if(toggle) serviceConnection.transportControls?.pause() else Unit
+                    isPlaying(playbackState) -> if (toggle) serviceConnection.transportControls?.pause() else Unit
                     isPlayEnabled(playbackState) -> serviceConnection.transportControls?.play()
                     else -> Unit
                 }
@@ -81,9 +82,8 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
 
     override fun onCleared() {
         super.onCleared()
-        serviceConnection.unsubscribe(MusicService.ROOT_ID, object :MediaBrowserCompat.SubscriptionCallback() {
-
-        })
+        serviceConnection.unsubscribe(
+            MusicService.ROOT_ID,
+            object : MediaBrowserCompat.SubscriptionCallback() {})
     }
-
 }

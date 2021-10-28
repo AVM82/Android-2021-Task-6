@@ -87,6 +87,7 @@ class ServiceConnection(
     }
 
     private inner class MediaControllerCallback : MediaControllerCompat.Callback() {
+
         override fun onPlaybackStateChanged(state: PlaybackStateCompat?) {
             _playbackState.postValue(state)
         }
