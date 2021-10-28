@@ -47,7 +47,9 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":exoplayer"))
 
+    implementation(Deps.ExoPlayer.core)
     implementation(Deps.ExoPlayer.mediasession)
+    implementation(Deps.ExoPlayer.ui)
 
     implementation(Deps.Ktx.core)
     implementation(Deps.Ktx.liveData)

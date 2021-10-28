@@ -11,7 +11,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import rs.school.rs.core.repository.SongRepository
+import rs.school.rs.exoplayer.repository.SongRepository
 import javax.inject.Inject
 
 class SongsSource @Inject constructor(private val songRepository: SongRepository) {
@@ -22,6 +22,7 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
         val allSongs = songRepository.fetchSongs()
         songs = allSongs.map { song ->
             Builder()
+                .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
                 .putString(METADATA_KEY_ARTIST, song.artist)
                 .putString(METADATA_KEY_TITLE, song.title)
                 .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
@@ -43,7 +44,6 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
                         song.getString(METADATA_KEY_MEDIA_URI).toUri()
                     )
                 )
-//                .createMediaSource(song.getString(METADATA_KEY_MEDIA_URI).toUri())
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
         return concatenatingMediaSource

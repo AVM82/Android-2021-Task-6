@@ -23,12 +23,14 @@ import rs.school.rs.exoplayer.callback.PlayerPlaybackPreparer
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MusicService @Inject constructor(
-    val dataSourceFactory: DefaultDataSourceFactory,
-    val exoPlayer: SimpleExoPlayer,
-    var songsSource: SongsSource
-) : MediaBrowserServiceCompat() {
+class MusicService : MediaBrowserServiceCompat() {
 
+    @Inject
+    lateinit var dataSourceFactory: DefaultDataSourceFactory
+    @Inject
+    lateinit var exoPlayer: SimpleExoPlayer
+    @Inject
+    lateinit var songsSource: SongsSource
 
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)

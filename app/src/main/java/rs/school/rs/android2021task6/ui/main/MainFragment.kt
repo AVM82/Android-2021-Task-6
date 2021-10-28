@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
 import rs.school.rs.core.model.Song
-import rs.school.rs.core.repository.SongRepositoryImp
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {

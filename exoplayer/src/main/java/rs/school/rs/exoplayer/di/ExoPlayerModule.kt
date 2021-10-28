@@ -12,8 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
-import rs.school.rs.core.repository.SongRepositoryImp
-import rs.school.rs.exoplayer.SongsSource
+import rs.school.rs.exoplayer.repository.SongRepository
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -37,7 +36,7 @@ class ExoPlayerModule {
 
     @ServiceScoped
     @Provides
-    fun provideSongRepository(@ApplicationContext context: Context) = SongRepositoryImp(context)
+    fun provideSongRepository(@ApplicationContext context: Context) = SongRepository(context)
 
     @ServiceScoped
     @Provides
