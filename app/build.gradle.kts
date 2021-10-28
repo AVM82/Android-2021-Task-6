@@ -65,6 +65,8 @@ dependencies {
     kapt(Deps.Kapt.dagger)
     kapt(Deps.Kapt.hilt)
 
+    implementation(Deps.glide)
+
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitUi)
     androidTestImplementation(Deps.Test.espresso)

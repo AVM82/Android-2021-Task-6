@@ -55,8 +55,12 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
         serviceConnection.transportControls?.skipToNext()
     }
 
-    fun nextSong() {
+    fun previousSong() {
         serviceConnection.transportControls?.skipToPrevious()
+    }
+
+    fun stop() {
+        serviceConnection.transportControls?.stop()
     }
 
     fun seekTo(pos: Long) {

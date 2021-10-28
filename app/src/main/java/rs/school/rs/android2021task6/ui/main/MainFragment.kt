@@ -3,18 +3,22 @@ package rs.school.rs.android2021task6.ui.main
 import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import rs.school.rs.android2021task6.R
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
 import rs.school.rs.core.model.Song
 import rs.school.rs.core.utils.Status
 import rs.school.rs.exoplayer.isPlaying
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -52,14 +56,12 @@ class MainFragment : Fragment() {
                         result.data?.let { songs ->
 //                            swipeSongAdapter.songs = songs
                             if (curPlayingSong == null && songs.isNotEmpty()) {
-//                                glide.load((curPlayingSong ?: songs[0]).imageUrl)
-//                                    .into(ivCurSongImage)
                                 curPlayingSong = songs[0]
-                                Toast.makeText(
-                                    requireActivity(),
-                                    "${curPlayingSong ?: "ERROR"}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Glide.with(requireContext())
+                                    .load(curPlayingSong?.bitmapUri)
+                                    .into(binding.songImage)
+                                binding.songAuthor.text = curPlayingSong?.artist
+                                binding.songName.text = curPlayingSong?.title
                             }
 //                            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
                         }
@@ -72,7 +74,11 @@ class MainFragment : Fragment() {
             if (it == null) return@observe
 
             curPlayingSong = toSong(it)
-//            glide.load(curPlayingSong?.imageUrl).into(ivCurSongImage)
+            Glide.with(requireContext()).load(curPlayingSong?.bitmapUri).
+                error(R.drawable.ic_baseline_broken_image_24)
+            .into(binding.songImage)
+            binding.songAuthor.text = curPlayingSong?.artist
+            binding.songName.text = curPlayingSong?.title
 //            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
         }
 
@@ -114,7 +120,7 @@ class MainFragment : Fragment() {
                 id = it.mediaId?.toInt() ?: 1,
                 title = it.title.toString(),
                 artist = it.subtitle.toString(),
-                bitmapUri = it.mediaUri.toString(),
+                bitmapUri = it.iconUri.toString(),
                 trackUri = it.mediaUri.toString()
             )
         }
@@ -125,6 +131,14 @@ class MainFragment : Fragment() {
         binding.playPauseSong.setOnClickListener {
             curPlayingSong?.let { song -> viewModel.playOrToggleSong(song, true) }
         }
+
+        binding.prevSong.setOnClickListener{
+            viewModel.previousSong()
+        }
+
+        binding.nextSong.setOnClickListener  {viewModel.skipSong()}
+
+        binding.stopSong.setOnClickListener {viewModel.stop()}
 //        }
     }
 
