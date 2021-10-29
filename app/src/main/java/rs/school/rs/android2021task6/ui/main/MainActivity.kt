@@ -1,9 +1,11 @@
-package rs.school.rs.android2021task6
+package rs.school.rs.android2021task6.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import rs.school.rs.android2021task6.ui.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
+import rs.school.rs.android2021task6.R
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

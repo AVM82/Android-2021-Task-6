@@ -1,19 +1,22 @@
+import rs.school.rs.android2021task6.ConfigData
+import rs.school.rs.android2021task6.Deps
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("io.gitlab.arturbosch.detekt").version("1.18.1")
-    id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = 31
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId = "rs.school.rs.android2021task6"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
+        versionCode = ConfigData.versionCode
+        versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,32 +43,31 @@ android {
     }
 }
 
-detekt {
-    toolVersion = "1.18.1"
-    config = files("config/detekt/detekt.yml")
-    buildUponDefaultConfig = true
-    source = files("src/main/java", "src/main/kotlin")
-    reports {
-        html {
-            enabled = true
-            destination = file("build/detekt/detekt.html")
-        }
-    }
-}
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    // Target version of the generated JVM bytecode. It is used for type resolution.
-    this.jvmTarget = "1.8"
-}
-
 dependencies {
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(project(":core"))
+    implementation(project(":exoplayer"))
+
+    implementation(Deps.ExoPlayer.core)
+    implementation(Deps.ExoPlayer.mediasession)
+    implementation(Deps.ExoPlayer.ui)
+
+    implementation(Deps.Ktx.core)
+    implementation(Deps.Ktx.liveData)
+    implementation(Deps.Ktx.viewModel)
+    implementation(Deps.Ktx.fragment)
+
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.Google.material)
+    implementation(Deps.AndroidX.constraint)
+
+    implementation(Deps.Google.hilt)
+    implementation(Deps.AndroidX.hilt)
+    kapt(Deps.Kapt.dagger)
+    kapt(Deps.Kapt.hilt)
+
+    implementation(Deps.glide)
+
+    testImplementation(Deps.Test.junit)
+    androidTestImplementation(Deps.Test.junitUi)
+    androidTestImplementation(Deps.Test.espresso)
 }
