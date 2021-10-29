@@ -18,11 +18,11 @@ class NotificationManager(
     private val context: Context,
     private val songCallBack: () -> Unit
 ) {
-    private val notificationManager: PlayerNotificationManager
+    private val playerNotificationManager: PlayerNotificationManager
 
     init {
 
-        notificationManager = PlayerNotificationManager
+        playerNotificationManager = PlayerNotificationManager
             .Builder(context, NOTIFICATION_ID, NOTIFICATION_CHANNEL_ID)
             .setChannelNameResourceId(R.string.notification_channel_name)
             .setChannelDescriptionResourceId(R.string.notification_channel_description)
@@ -30,15 +30,15 @@ class NotificationManager(
             .setSmallIconResourceId(R.drawable.ic_play)
             .setNotificationListener(notificationListener)
             .build()
-        notificationManager.setMediaSessionToken(sessionToken)
+        playerNotificationManager.setMediaSessionToken(sessionToken)
     }
 
     fun showNotification(player: Player) {
-        notificationManager.setPlayer(player)
+        playerNotificationManager.setPlayer(player)
     }
 
-
     //An adapter to provide content assets of the media currently playing.
+
     private inner class DescriptionAdapter(
         private val mediaController: MediaControllerCompat
     ) : PlayerNotificationManager.MediaDescriptionAdapter {
@@ -52,7 +52,7 @@ class NotificationManager(
             return mediaController.sessionActivity
         }
 
-        override fun getCurrentContentText(player: Player): CharSequence? {
+        override fun getCurrentContentText(player: Player): CharSequence {
             return mediaController.metadata.description.subtitle.toString()
         }
 
@@ -75,7 +75,6 @@ class NotificationManager(
             return null
         }
     }
-
 
     private fun getMediaControllerCompat() = MediaControllerCompat(context, sessionToken)
 

@@ -43,5 +43,4 @@ class ExoPlayerModule {
     fun provideDataSourceFactory(
         @ApplicationContext context: Context
     ) = DefaultDataSourceFactory(context, Util.getUserAgent(context, "Player"))
-
 }

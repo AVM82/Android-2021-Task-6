@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import rs.school.rs.android2021task6.R
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
 import rs.school.rs.core.model.Song
+import rs.school.rs.core.utils.Resource
 import rs.school.rs.core.utils.Status
 import rs.school.rs.exoplayer.isPlaying
 
@@ -34,7 +35,6 @@ class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,20 +49,7 @@ class MainFragment : Fragment() {
         viewModel.mediaItems.observe(viewLifecycleOwner) {
             it?.let { result ->
                 when (result.status) {
-                    Status.SUCCESS -> {
-                        result.data?.let { songs ->
-                            if (curPlayingSong == null && songs.isNotEmpty()) {
-                                curPlayingSong = songs[0]
-                                views {
-                                    Glide.with(requireContext())
-                                        .load(curPlayingSong?.bitmapUri)
-                                        .into(songImage)
-                                    songAuthor.text = curPlayingSong?.artist
-                                    songName.text = curPlayingSong?.title
-                                }
-                            }
-                        }
-                    }
+                    Status.SUCCESS -> whenSuccess(result)
                     else -> Unit
                 }
             }
@@ -108,6 +95,21 @@ class MainFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                     else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun whenSuccess(result: Resource<List<Song>>) {
+        result.data?.let { songs ->
+            if (curPlayingSong == null && songs.isNotEmpty()) {
+                curPlayingSong = songs[0]
+                views {
+                    Glide.with(requireContext())
+                        .load(curPlayingSong?.bitmapUri)
+                        .into(songImage)
+                    songAuthor.text = curPlayingSong?.artist
+                    songName.text = curPlayingSong?.title
                 }
             }
         }

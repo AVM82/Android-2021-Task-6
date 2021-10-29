@@ -49,7 +49,6 @@ class ServiceConnection(
     val transportControls: MediaControllerCompat.TransportControls?
         get() = mediaController?.transportControls
 
-
     fun subscribe(parentId: String, callback: MediaBrowserCompat.SubscriptionCallback) {
         mediaBrowser.subscribe(parentId, callback)
     }
@@ -83,7 +82,6 @@ class ServiceConnection(
                 )
             )
         }
-
     }
 
     private inner class MediaControllerCallback : MediaControllerCompat.Callback() {
@@ -92,7 +90,7 @@ class ServiceConnection(
             _playbackState.postValue(state)
         }
 
-        override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
+        override fun onMetadataChanged(metadata: MediaMetadataCompat) {
             _playingSong.postValue(metadata)
         }
 

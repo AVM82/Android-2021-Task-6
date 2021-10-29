@@ -48,7 +48,8 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
                     }
                     _mediaItems.postValue(Resource.success(items))
                 }
-            })
+            }
+        )
     }
 
     fun skipSong() {
@@ -80,6 +81,7 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
         super.onCleared()
         serviceConnection.unsubscribe(
             MusicService.ROOT_ID,
-            object : MediaBrowserCompat.SubscriptionCallback() {})
+            object : MediaBrowserCompat.SubscriptionCallback() {}
+        )
     }
 }

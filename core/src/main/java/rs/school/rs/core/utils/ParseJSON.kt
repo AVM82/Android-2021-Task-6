@@ -12,7 +12,6 @@ const val SONG_FIELD_ARTIST = "artist"
 const val SONG_FIELD_IMG = "bitmapUri"
 const val SONG_FIELD_TRACK_URI = "trackUri"
 
-
 class ParseJSON {
     @Throws(JSONException::class)
     fun toSongList(json: String): List<Song> {

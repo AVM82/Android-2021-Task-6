@@ -15,5 +15,4 @@ class SongRepository(private val context: Context) {
         input.close()
         return ParseJSON().toSongList(String(buffer, UTF_8))
     }
-
 }

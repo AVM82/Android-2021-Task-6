@@ -3,7 +3,15 @@ package rs.school.rs.exoplayer
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.MediaMetadataCompat.*
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_URI
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_ARTIST
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_TITLE
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON_URI
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE
+import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE
 import androidx.core.net.toUri
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
@@ -19,7 +27,8 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
     var songs = emptyList<MediaMetadataCompat>()
 
     suspend fun fetchSongs() = withContext(Dispatchers.IO) {
-        songs = songRepository.fetchSongs().map { song -> Builder()
+        songs = songRepository.fetchSongs().map { song ->
+            MediaMetadataCompat.Builder()
             .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
             .putString(METADATA_KEY_ARTIST, song.artist)
             .putString(METADATA_KEY_TITLE, song.title)
@@ -29,20 +38,8 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
             .putString(METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
             .putString(METADATA_KEY_MEDIA_URI, song.trackUri)
             .putString(METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
-            .build() }
-//        songs = allSongs.map { song ->
-//            Builder()
-//                .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
-//                .putString(METADATA_KEY_ARTIST, song.artist)
-//                .putString(METADATA_KEY_TITLE, song.title)
-//                .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
-//                .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.artist)
-//                .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.artist)
-//                .putString(METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
-//                .putString(METADATA_KEY_MEDIA_URI, song.trackUri)
-//                .putString(METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
-//                .build()
-//        }
+            .build()
+        }
     }
 
     fun asMediaSource(dataSourceFactory: DefaultDataSourceFactory): ConcatenatingMediaSource {

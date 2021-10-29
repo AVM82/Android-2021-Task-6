@@ -12,6 +12,7 @@ import rs.school.rs.exoplayer.SongsSource
 
 //MediaSessionConnector.PlaybackPreparer
 //Interface to which playback preparation and play actions are delegated.
+
 class PlayerPlaybackPreparer(
     private val songsSource: SongsSource,
     private val playerPrepared: (MediaMetadataCompat?) -> Unit

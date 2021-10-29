@@ -2,8 +2,8 @@ import rs.school.rs.android2021task6.ConfigData
 import rs.school.rs.android2021task6.Deps
 
 plugins {
-    id ("com.android.library")
-    id ("kotlin-android")
+    id("com.android.library")
+    id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }

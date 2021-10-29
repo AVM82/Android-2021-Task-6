@@ -5,6 +5,7 @@ import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
 import rs.school.rs.exoplayer.service.MusicService
 //Listener of all changes in the Player.
+
 class PlayerEventListener(private val musicService: MusicService) : Player.Listener {
 
     override fun onPlaybackStateChanged(playbackState: Int) {

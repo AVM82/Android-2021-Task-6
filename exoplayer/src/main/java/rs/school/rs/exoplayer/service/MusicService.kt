@@ -46,7 +46,6 @@ class MusicService : MediaBrowserServiceCompat() {
 
     var isForegroundService = false
 
-
     override fun onCreate() {
         super.onCreate()
         //I know it’s bad to do this, but I expect it to be fast, and I don’t have to do various checks.
