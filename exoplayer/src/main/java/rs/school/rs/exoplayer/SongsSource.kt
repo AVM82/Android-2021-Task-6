@@ -19,20 +19,30 @@ class SongsSource @Inject constructor(private val songRepository: SongRepository
     var songs = emptyList<MediaMetadataCompat>()
 
     suspend fun fetchSongs() = withContext(Dispatchers.IO) {
-        val allSongs = songRepository.fetchSongs()
-        songs = allSongs.map { song ->
-            Builder()
-                .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
-                .putString(METADATA_KEY_ARTIST, song.artist)
-                .putString(METADATA_KEY_TITLE, song.title)
-                .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
-                .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.artist)
-                .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.artist)
-                .putString(METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
-                .putString(METADATA_KEY_MEDIA_URI, song.trackUri)
-                .putString(METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
-                .build()
-        }
+        songs = songRepository.fetchSongs().map { song -> Builder()
+            .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
+            .putString(METADATA_KEY_ARTIST, song.artist)
+            .putString(METADATA_KEY_TITLE, song.title)
+            .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
+            .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.artist)
+            .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.artist)
+            .putString(METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
+            .putString(METADATA_KEY_MEDIA_URI, song.trackUri)
+            .putString(METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
+            .build() }
+//        songs = allSongs.map { song ->
+//            Builder()
+//                .putString(METADATA_KEY_MEDIA_ID, song.id.toString())
+//                .putString(METADATA_KEY_ARTIST, song.artist)
+//                .putString(METADATA_KEY_TITLE, song.title)
+//                .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
+//                .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.artist)
+//                .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.artist)
+//                .putString(METADATA_KEY_DISPLAY_ICON_URI, song.bitmapUri)
+//                .putString(METADATA_KEY_MEDIA_URI, song.trackUri)
+//                .putString(METADATA_KEY_ALBUM_ART_URI, song.bitmapUri)
+//                .build()
+//        }
     }
 
     fun asMediaSource(dataSourceFactory: DefaultDataSourceFactory): ConcatenatingMediaSource {

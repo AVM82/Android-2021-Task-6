@@ -27,8 +27,10 @@ class MusicService : MediaBrowserServiceCompat() {
 
     @Inject
     lateinit var dataSourceFactory: DefaultDataSourceFactory
+
     @Inject
     lateinit var exoPlayer: SimpleExoPlayer
+
     @Inject
     lateinit var songsSource: SongsSource
 
@@ -38,57 +40,49 @@ class MusicService : MediaBrowserServiceCompat() {
     private var playingSong: MediaMetadataCompat? = null
     private var isPlayerInit = false
     private var playerEventListener: PlayerEventListener? = null
+    private var mediaSession: MediaSessionCompat? = null
+    private var mediaSessionConnector: MediaSessionConnector? = null
+    private var notificationManager: NotificationManager? = null
 
     var isForegroundService = false
 
 
     override fun onCreate() {
         super.onCreate()
-
-//        serviceScope.launch {
-//            songsSource.fetchSongs()
-//        }
         //I know it’s bad to do this, but I expect it to be fast, and I don’t have to do various checks.
-        runBlocking {
-            songsSource.fetchSongs()
-        }
-
-        val intent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
-            PendingIntent.getActivity(this, 0, it, 0)
-        }
-        val mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
+        runBlocking { songsSource.fetchSongs() }
+        val intent = packageManager?.getLaunchIntentForPackage(packageName)
+            ?.let { PendingIntent.getActivity(this, 0, it, 0) }
+        mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
             setSessionActivity(intent)
             isActive = true
         }
-        sessionToken = mediaSession.sessionToken
-        val notificationManager = NotificationManager(
-            context = this,
-            sessionToken = mediaSession.sessionToken,
-            notificationListener = PlayerNotificationListener(this)
-        ) {
-            songDuration = exoPlayer.duration
-        }
-
+        sessionToken = mediaSession?.sessionToken
         val playbackPreparer = PlayerPlaybackPreparer(songsSource) {
             playingSong = it
             preparePlayer(songsSource.songs, it, true)
         }
-
-        val mediaSessionConnector = MediaSessionConnector(mediaSession)
-        mediaSessionConnector.setPlaybackPreparer(playbackPreparer)
-        mediaSessionConnector.setPlayer(exoPlayer)
-        mediaSessionConnector.setQueueNavigator(object : TimelineQueueNavigator(mediaSession) {
-            override fun getMediaDescription(
-                player: Player,
-                windowIndex: Int
-            ): MediaDescriptionCompat {
-                return songsSource.songs[windowIndex].description
-            }
-        })
-
+        mediaSession?.let {
+            notificationManager = NotificationManager(
+                sessionToken = it.sessionToken,
+                notificationListener = PlayerNotificationListener(this),
+                context = this
+            ) { songDuration = exoPlayer.duration }
+            mediaSessionConnector = MediaSessionConnector(it)
+            mediaSessionConnector?.setPlaybackPreparer(playbackPreparer)
+            mediaSessionConnector?.setPlayer(exoPlayer)
+            mediaSessionConnector?.setQueueNavigator(object : TimelineQueueNavigator(it) {
+                override fun getMediaDescription(
+                    player: Player,
+                    windowIndex: Int
+                ): MediaDescriptionCompat {
+                    return songsSource.songs[windowIndex].description
+                }
+            })
+        }
         playerEventListener = PlayerEventListener(this)
         playerEventListener?.let { exoPlayer.addListener(it) }
-        notificationManager.showNotification(exoPlayer)
+        notificationManager?.showNotification(exoPlayer)
     }
 
     private fun preparePlayer(
@@ -132,18 +126,12 @@ class MusicService : MediaBrowserServiceCompat() {
                 preparePlayer(songsSource.songs, songsSource.songs[0], false)
                 isPlayerInit = true
             }
-            //todo remove this
-//            else{
-//                mediaSession.sendSessionEvent(NETWORK_ERROR, null)
-//                result.sendResult(null)
-//            }
         }
     }
 
     companion object {
         private const val SERVICE_TAG = "PlayService"
         private var songDuration = 0L
-            private set
         const val ROOT_ID = "MediaRoot"
     }
 }

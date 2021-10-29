@@ -3,7 +3,6 @@ package rs.school.rs.android2021task6.ui.main
 import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import rs.school.rs.android2021task6.R
 import rs.school.rs.android2021task6.databinding.MainFragmentBinding
 import rs.school.rs.core.model.Song
 import rs.school.rs.core.utils.Status
 import rs.school.rs.exoplayer.isPlaying
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -54,16 +51,16 @@ class MainFragment : Fragment() {
                 when (result.status) {
                     Status.SUCCESS -> {
                         result.data?.let { songs ->
-//                            swipeSongAdapter.songs = songs
                             if (curPlayingSong == null && songs.isNotEmpty()) {
                                 curPlayingSong = songs[0]
-                                Glide.with(requireContext())
-                                    .load(curPlayingSong?.bitmapUri)
-                                    .into(binding.songImage)
-                                binding.songAuthor.text = curPlayingSong?.artist
-                                binding.songName.text = curPlayingSong?.title
+                                views {
+                                    Glide.with(requireContext())
+                                        .load(curPlayingSong?.bitmapUri)
+                                        .into(songImage)
+                                    songAuthor.text = curPlayingSong?.artist
+                                    songName.text = curPlayingSong?.title
+                                }
                             }
-//                            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
                         }
                     }
                     else -> Unit
@@ -72,28 +69,30 @@ class MainFragment : Fragment() {
         }
         viewModel.curPlayingSong.observe(viewLifecycleOwner) {
             if (it == null) return@observe
-
             curPlayingSong = toSong(it)
-            Glide.with(requireContext()).load(curPlayingSong?.bitmapUri).
-                error(R.drawable.ic_baseline_broken_image_24)
-            .into(binding.songImage)
-            binding.songAuthor.text = curPlayingSong?.artist
-            binding.songName.text = curPlayingSong?.title
-//            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
+            views {
+                Glide.with(requireContext()).load(curPlayingSong?.bitmapUri)
+                    .error(R.drawable.ic_baseline_broken_image_24)
+                    .into(songImage)
+                songAuthor.text = curPlayingSong?.artist
+                songName.text = curPlayingSong?.title
+            }
         }
 
         viewModel.playbackState.observe(viewLifecycleOwner) {
             playbackState = it
-            binding.playPauseSong.setImageResource(
-                if (playbackState?.let { ps -> isPlaying(ps) } == true) R.drawable.ic_pause else R.drawable.ic_play
-            )
+            views {
+                playPauseSong.setImageResource(
+                    if (playbackState?.let { ps -> isPlaying(ps) } == true) R.drawable.ic_pause else R.drawable.ic_play
+                )
+            }
         }
         viewModel.isConnected.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.ERROR -> Toast.makeText(
                         requireActivity(),
-                        result.message ?: "An unknown error occured",
+                        result.message ?: "An unknown error occurred",
                         Toast.LENGTH_LONG
                     ).show()
                     else -> Unit
@@ -105,7 +104,7 @@ class MainFragment : Fragment() {
                 when (result.status) {
                     Status.ERROR -> Toast.makeText(
                         requireActivity(),
-                        result.message ?: "An unknown error occured",
+                        result.message ?: "An unknown error occurred",
                         Toast.LENGTH_LONG
                     ).show()
                     else -> Unit
@@ -127,19 +126,15 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        views {
-        binding.playPauseSong.setOnClickListener {
-            curPlayingSong?.let { song -> viewModel.playOrToggleSong(song, true) }
+        views {
+            playPauseSong.setOnClickListener {
+                curPlayingSong?.let { song -> viewModel.playOrToggleSong(song, true) }
+            }
+            prevSong.setOnClickListener {
+                viewModel.previousSong()
+            }
+            nextSong.setOnClickListener { viewModel.skipSong() }
         }
-
-        binding.prevSong.setOnClickListener{
-            viewModel.previousSong()
-        }
-
-        binding.nextSong.setOnClickListener  {viewModel.skipSong()}
-
-        binding.stopSong.setOnClickListener {viewModel.stop()}
-//        }
     }
 
     private fun <T> views(block: MainFragmentBinding.() -> T) = binding.block()

@@ -115,6 +115,4 @@ class ServiceConnection(
     companion object {
         private const val NETWORK_ERROR = "NETWORK_ERROR"
     }
-
-
 }

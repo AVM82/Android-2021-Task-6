@@ -18,16 +18,18 @@ class NotificationManager(
     private val context: Context,
     private val songCallBack: () -> Unit
 ) {
-    private var notificationManager = PlayerNotificationManager
-        .Builder(context, NOTIFICATION_ID, NOTIFICATION_CHANNEL_ID)
-        .setNotificationListener(notificationListener)
-        .setChannelNameResourceId(R.string.notification_channel_name)
-        .setChannelDescriptionResourceId(R.string.notification_channel_description)
-        .setMediaDescriptionAdapter(DescriptionAdapter(getMediaControllerCompat()))
-        .setSmallIconResourceId(R.drawable.ic_play)
-        .build()
+    private val notificationManager: PlayerNotificationManager
 
     init {
+
+        notificationManager = PlayerNotificationManager
+            .Builder(context, NOTIFICATION_ID, NOTIFICATION_CHANNEL_ID)
+            .setChannelNameResourceId(R.string.notification_channel_name)
+            .setChannelDescriptionResourceId(R.string.notification_channel_description)
+            .setMediaDescriptionAdapter(DescriptionAdapter(getMediaControllerCompat()))
+            .setSmallIconResourceId(R.drawable.ic_play)
+            .setNotificationListener(notificationListener)
+            .build()
         notificationManager.setMediaSessionToken(sessionToken)
     }
 
@@ -36,6 +38,7 @@ class NotificationManager(
     }
 
 
+    //An adapter to provide content assets of the media currently playing.
     private inner class DescriptionAdapter(
         private val mediaController: MediaControllerCompat
     ) : PlayerNotificationManager.MediaDescriptionAdapter {

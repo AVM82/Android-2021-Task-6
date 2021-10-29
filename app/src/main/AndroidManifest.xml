@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android2021Task6">
         <service android:name="rs.school.rs.exoplayer.service.MusicService"
-            android:exported="false"
-            tools:ignore="Instantiatable">
+            tools:ignore="Instantiatable"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
@@ -28,7 +28,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

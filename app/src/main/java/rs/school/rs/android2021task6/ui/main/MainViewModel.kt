@@ -59,14 +59,6 @@ class MainViewModel @Inject constructor(private val serviceConnection: ServiceCo
         serviceConnection.transportControls?.skipToPrevious()
     }
 
-    fun stop() {
-        serviceConnection.transportControls?.stop()
-    }
-
-    fun seekTo(pos: Long) {
-        serviceConnection.transportControls?.seekTo(pos)
-    }
-
     fun playOrToggleSong(mediaItem: Song, toggle: Boolean = false) {
         val isPrepared = playbackState.value?.let { isPrepared(it) } ?: false
         if (isPrepared && mediaItem.id.toString() ==

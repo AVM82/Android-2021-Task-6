@@ -7,9 +7,12 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import rs.school.rs.exoplayer.NotificationManager
 import rs.school.rs.exoplayer.service.MusicService
 
-class PlayerNotificationListener(private val musicService: MusicService) :
-    PlayerNotificationManager.NotificationListener {
+//A listener for changes to the notification.
+class PlayerNotificationListener(
+    private val musicService: MusicService
+) : PlayerNotificationManager.NotificationListener {
 
+    //Called after the notification has been cancelled.
     override fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {
         super.onNotificationCancelled(notificationId, dismissedByUser)
         musicService.apply {
@@ -19,6 +22,7 @@ class PlayerNotificationListener(private val musicService: MusicService) :
         }
     }
 
+    //Called each time after the notification has been posted.
     override fun onNotificationPosted(
         notificationId: Int,
         notification: Notification,
